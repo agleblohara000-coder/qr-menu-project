@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Онлайн Меню</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="menu-container">
+        <div class="menu-header">
+            <span class="location">• КАЗАХСТАН • АЛМАТЫ •</span>
+            <h1>ШАШЛЫЧНЫЙ ДВОР №1</h1>
+        </div>
+
+        <div id="menu-content"></div>
+    </div>
+
+    <div id="dish-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <img id="modal-image" src="" alt="Блюдо">
+            <h2 id="modal-title"></h2>
+            <p id="modal-price" class="modal-price"></p>
+            <div class="modal-divider"></div>
+            <h3>О блюде и приготовлении</h3>
+            <p id="modal-full-description" class="modal-text"></p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

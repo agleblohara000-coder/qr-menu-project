@@ -1,0 +1,189 @@
+/* Общие стили страницы */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+}
+
+/* Мобильный контейнер меню (как на твоем первом скрине) */
+.menu-container {
+    width: 100%;
+    max-width: 480px;
+    background-color: #FAF6F0; /* Кремовый приятный фон */
+    min-height: 100vh;
+    box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Шапка меню */
+.menu-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.menu-header .location {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    color: #8B4513;
+    font-weight: bold;
+}
+
+.menu-header h1 {
+    color: #8B4513;
+    font-size: 2rem;
+    margin: 10px 0 0 0;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+/* Заголовки категорий */
+.category-title {
+    color: #8B4513;
+    font-size: 1.4rem;
+    border-bottom: 1px dashed #ccc;
+    padding-bottom: 8px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+/* Карточка блюда (Текст слева, картинка справа) */
+.dish-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.dish-card:hover {
+    transform: translateY(-2px);
+}
+
+/* Блок с текстом внутри карточки */
+.dish-info {
+    flex: 1;
+}
+
+.dish-info h3 {
+    margin: 0 0 8px 0;
+    color: #333;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.dish-info p {
+    margin: 0 0 12px 0;
+    color: #666;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+/* Ценник в карточке */
+.price-tag {
+    background-color: #FFF0E0;
+    color: #FF8C00;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.95rem;
+    display: inline-block;
+}
+
+/* Маленькая картинка блюда в карточке */
+.dish-img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+/* --- СТИЛИ МОДАЛЬНОГО ОКНА --- */
+.modal {
+    display: none; 
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); 
+    backdrop-filter: blur(5px); 
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto; 
+    padding: 20px;
+    border-radius: 20px;
+    width: 85%;
+    max-width: 400px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    animation: slideUp 0.3s ease-out;
+    box-sizing: border-box;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.close-button {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 32px;
+    font-weight: bold;
+    color: #999;
+    cursor: pointer;
+    line-height: 1;
+}
+
+#modal-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 14px;
+    margin-top: 15px;
+}
+
+#modal-title {
+    color: #8B4513; 
+    margin: 15px 0 5px 0;
+    font-size: 1.3rem;
+}
+
+.modal-price {
+    font-weight: bold;
+    color: #FF8C00; 
+    font-size: 1.15rem;
+    margin: 0;
+}
+
+.modal-divider {
+    border-top: 1px dashed #e0e0e0;
+    margin: 15px 0;
+}
+
+.modal-content h3 {
+    font-size: 1rem;
+    color: #333;
+    margin: 0 0 8px 0;
+}
+
+.modal-text {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #555;
+    margin: 0;
+}
