@@ -1,4 +1,4 @@
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = "https://qr-menu-project-1fv4.onrender.com";
 const RESTAURANT_ID = "shashlychnaya_one";
 
 const modal = document.getElementById('dish-modal');
