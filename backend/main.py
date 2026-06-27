@@ -14,7 +14,6 @@ app.add_middleware(
 )
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
-# Убедись, что путь к папке картинок верный для твоего проекта
 images_path = os.path.join(current_dir, "../frontend/images")
 app.mount("/static/images", StaticFiles(directory=images_path), name="images")
 
