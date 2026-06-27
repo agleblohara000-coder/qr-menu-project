@@ -26,11 +26,11 @@ fake_db_menu = {
                 "items": [
                     {"id": 1, "name": "Шашлык из баранины (Мякоть)", "price": 2400, "image": "shashlyk.jpg"},
                     {"id": 2, "name": "Антрекот из баранины", "price": 2600, "image": "antrekot.jpg"},
-                    {"id": 3, "name": "Люля-Кебаб из говядины", "price": 1900, "image": "lyulya.jpg"}
+                    {"id": 3, "name": "Люля-Кебаб из говядины", "price": 1900, "image": "lyulya.jpg"},
                     {"id": 4, "name": "Фирменная утка", "price": 4500, "image": "duck.jpg"},
-{"id": 5, "name": "Свежий салат", "price": 1200, "image": "salad.jpg"},
-{"id": 6, "name": "Свежий хлеб / Лепешка", "price": 400, "image": "bread.jpg"},
-{"id": 7, "name": "Фирменный соус", "price": 300, "image": "sauce.jpg"}
+                    {"id": 5, "name": "Свежий салат", "price": 1200, "image": "salad.jpg"},
+                    {"id": 6, "name": "Свежий хлеб / Лепешка", "price": 400, "image": "bread.jpg"},
+                    {"id": 7, "name": "Фирменный соус", "price": 300, "image": "sauce.jpg"}
                 ]
             }
         ]
