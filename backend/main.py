@@ -17,6 +17,7 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 images_path = os.path.join(current_dir, "../frontend/images")
 app.mount("/static/images", StaticFiles(directory=images_path), name="images")
 
+# Полная база данных
 fake_db_menu = {
     "shashlychnaya_one": {
         "restaurant_name": "Шашлычный Двор №1",
