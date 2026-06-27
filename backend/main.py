@@ -1,49 +1,53 @@
-import logging
-import httpx
-from aiogram import Bot, Dispatcher, F
-from aiogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
-from aiogram.filters import Command
-from aiogram.fsm.context import FSMContext
-from aiogram.fsm.state import StatesGroup, State
-import asyncio
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+import os
 
-API_TOKEN = '8920670872:AAHPfC3yLR8fwyeeb88dY-KVlWvcTbxemmQ'
-# Убедись, что адрес именно такой, без слеша в конце
-API_URL = 'https://qr-menu-project-1fv4.onrender.com'
+app = FastAPI()
 
-logging.basicConfig(level=logging.INFO)
-bot = Bot(token=API_TOKEN)
-dp = Dispatcher()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-class ChangePriceStates(StatesGroup):
-    waiting_for_dish_id = State()
-    waiting_for_new_price = State()
+current_dir = os.path.dirname(os.path.abspath(__file__))
+images_path = os.path.join(current_dir, "../frontend/images")
+app.mount("/static/images", StaticFiles(directory=images_path), name="images")
 
-@dp.callback_query(F.data == "change_price")
-async def start_change_price(callback: CallbackQuery, state: FSMContext):
-    await callback.message.answer("Введите ID блюда (цифру):")
-    await state.set_state(ChangePriceStates.waiting_for_dish_id)
+fake_db_menu = {
+    "shashlychnaya_one": {
+        "restaurant_name": "Шашлычный Двор №1",
+        "categories": [
+            {
+                "category_name": "Фирменный Шашлык",
+                "items": [
+                    {"id": 1, "name": "Шашлык из баранины (Мякоть)", "price": 2400, "image": "shashlyk.jpg"},
+                    {"id": 2, "name": "Антрекот из баранины", "price": 2600, "image": "antrekot.jpg"},
+                    {"id": 3, "name": "Люля-Кебаб из говядины", "price": 1900, "image": "lyulya.jpg"},
+                    {"id": 4, "name": "Фирменная утка", "price": 4500, "image": "duck.jpg"},
+                    {"id": 5, "name": "Свежий салат", "price": 1200, "image": "salad.jpg"},
+                    {"id": 6, "name": "Свежий хлеб / Лепешка", "price": 400, "image": "bread.jpg"},
+                    {"id": 7, "name": "Фирменный соус", "price": 300, "image": "sauce.jpg"}
+                ]
+            }
+        ]
+    }
+}
 
-@dp.message(ChangePriceStates.waiting_for_new_price)
-async def process_new_price(message: Message, state: FSMContext):
-    new_price = message.text.strip()
-    user_data = await state.get_data()
-    dish_id = int(user_data['dish_id'])
+@app.get("/api/menu/{restaurant_id}")
+async def get_menu(restaurant_id: str):
+    return fake_db_menu.get(restaurant_id, {"error": "Restaurant not found"})
 
-    # ФОРМИРУЕМ ПУТЬ В ТОЧНОСТИ КАК В MAIN.PY
-    url = f"{API_URL}/api/menu/shashlychnaya_one/item/{dish_id}"
-    
-    try:
-        async with httpx.AsyncClient() as client:
-            response = await client.put(url, json={"price": int(new_price)})
-        
-        if response.status_code == 200:
-            await message.answer("✅ Успех!")
-        else:
-            # Если 404, бот напишет нам адрес, чтобы мы увидели, в чем дело
-            await message.answer(f"Ошибка {response.status_code}. Адрес запроса: {url}")
-    except Exception as e:
-        await message.answer(f"Ошибка: {e}")
-    await state.clear()
-
-# ... (остальной код твоего бота)
+@app.put("/api/menu/{restaurant_id}/item/{dish_id}")
+async def update_price(restaurant_id: str, dish_id: int, new_price: dict):
+    restaurant = fake_db_menu.get(restaurant_id)
+    if not restaurant: return {"error": "Restaurant not found"}
+    for category in restaurant["categories"]:
+        for item in category["items"]:
+            if item["id"] == dish_id:
+                item["price"] = new_price["price"]
+                return {"message": "Success", "new_price": item["price"]}
+    return {"error": "Dish not found"}
